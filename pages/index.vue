@@ -1,6 +1,27 @@
 <template>
   <div>
-    <div v-if="popup" class="modal">
+    <div v-if="!gameStart" class="modal">
+      <div  class="modal-item" v-if="isOver">
+        <h1>Bien joué !</h1>
+        <h2 v-if="!isPlayer1Play">{{player1.name}} remporte la partie</h2>
+        <h2 v-if="isPlayer1Play">{{player2.name}} remporte la partie</h2>
+        <button @click="gameLaunch()">Relancer une partie</button>
+      </div>
+
+      <div  class="modal-item" v-else>
+        <h1>Bienvenue !</h1>
+        <div class="field">
+          <label>Nom joueur 1</label>
+          <input type="text" v-model="player1.name">
+        </div>
+        <div class="field">
+          <label>Nom joueur 2</label>
+          <input type="text" v-model="player2.name">
+        </div>
+        <button @click="gameLaunch()">Lancer la partie</button>
+      </div>
+
+
 
     </div>
  <p>Tour du joueur <span v-if="isPlayer1Play">1</span><span v-else>2</span></p>
@@ -50,9 +71,6 @@ export default {
       numberToWin: 4,
       isOver:false,
     }
-  },
-  mounted(){
-    this.openPopup()
   },
   methods: {
     gameLaunch(){
@@ -244,5 +262,53 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+.modal-item{
+  background-color:#FFF;
+  border-radius:5px;
+  padding:50px;
+  -webkit-box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.25);
+  box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.25);
+}
+.field{
+  display:flex;
+  flex-flow:column;
+  margin:10px 0;
+}
+.field input{
+  border-radius:5px;
+}
+
+.white {
+  background: white;
+}
+.red {
+  background: darkred;
+}
+.yellow {
+  background: yellow;
+}
+.rond {
+  width: 8em;
+  height: 8em;
+  border-radius: 100%;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 0;
+  width: fit-content;
+}
+
+.grid-item {
+  background: dodgerblue;
+  border-radius: 1rem;
+  width: fit-content;
+  padding: 1rem;
+}
+
 </style>
